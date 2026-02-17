@@ -89,10 +89,17 @@ client.on('messageCreate', async (message) => {
 			const fixed = await perspectiveFix(imageUrl);
 			const imageText = await readText(fixed);
 
-			if (imageText.includes('crypto casino') && imageText.includes('launch') && imageText.includes('withdraw'))
-				message.channel.send({
-					content: 'Scam!'
-				});
+			if (imageText.includes('crypto casino') && imageText.includes('launch') && imageText.includes('withdraw')){
+				try {
+					await message.delete();
+					await message.member.timeout(24 * 60 * 60 * 1000);
+				} 
+				
+				catch (err) {
+					console.log(err);
+				}
+				
+			}
 		}
     }
 });
