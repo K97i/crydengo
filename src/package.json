@@ -1,13 +1,13 @@
 {
   "name": "crydengo",
   "version": "1.0.0",
-  "description": "",
+  "description": "An experimental moderation bot to catch the botted crypto scam image.",
   "license": "ISC",
-  "author": "",
+  "author": "K97i",
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "node ."
+    "dev": "node ."
   },
   "dependencies": {
     "@napi-rs/canvas": "^0.1.93",
