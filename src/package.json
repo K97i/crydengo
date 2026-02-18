@@ -7,11 +7,15 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "dev": "node ."
+    "dev": "node .",
+    "deploy-commands": "node deploy-commands.js"
   },
   "dependencies": {
+    "@keyv/serialize": "^1.1.1",
+    "@keyv/sqlite": "^4.0.8",
     "@napi-rs/canvas": "^0.1.93",
     "discord.js": "^14.25.1",
+    "keyv": "^5.6.0",
     "tesseract.js": "^7.0.0"
   },
   "devDependencies": {

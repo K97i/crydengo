@@ -2,10 +2,13 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits, MessageFlags } = require('discord.js');
-const { token } = require('./config.json');
+const { token } = require('./configs/config.json');
 
-const { perspectiveFix } = require('./image-fix/perspective-fix.js');
-const { readText } = require('./image-fix/ocr.js');
+const { get_config, set_config, config_defaults } = require('./helpers/guild-config.js');
+const { perspectiveFix } = require('./helpers/image-fix/perspective-fix.js');
+const { readText } = require('./helpers/image-fix/ocr.js');
+
+const inviteRegex = /(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/([a-zA-Z0-9-]{2,32})/;
 
 // Create a new client instance
 // Initialize the client with required intents
@@ -80,9 +83,13 @@ client.on('messageCreate', async (message) => {
     // Ignore messages from other bots to prevent infinite loops
     if (message.author.bot) return;
 
-    // Log the message content to the console
-    console.log(`New message from ${message.author.tag}: ${message.content}`);
-    if (message.attachments) {
+	let automodConfig, invites;
+
+	if (!(automodConfig = await get_config(message.guildId, 'automod'))) 
+		automodConfig = await config_defaults(message.guildId, 'automod');
+		
+	// crypto image
+    if (message.attachments && automodConfig.blockCryptoImage) {
         const attachment = message.attachments.first();
 		if (attachment && attachment.contentType.startsWith('image/')) {
 			const imageUrl = attachment.url;
@@ -102,4 +109,19 @@ client.on('messageCreate', async (message) => {
 			}
 		}
     }
+
+	// r18 invites
+	if (invites = message.content.match(inviteRegex)) {
+		const inviteCode = matches[5];
+
+		try {
+			const inviteMetadata = await client.fetchInvite(inviteCode);
+			console.log(inviteMetadata);
+		}
+		catch (err) {
+			console.warn("Failed to get invite metadata!");
+			console.warn(err);
+		}
+	}
+
 });

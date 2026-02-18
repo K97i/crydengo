@@ -1,0 +1,29 @@
+{
+    "guildAutomodDefaults": {
+        "blockCryptoImage": true,
+        "cryptoImageRotation": -5,
+        "cryptoKeywords": [ 
+            "crypto casino", 
+            "launch",
+            "withdraw" 
+        ],
+        "cryptoImageThreshold": 1,
+        "cryptoAutomodAction": "timeout",
+        "cryptoTimeoutDuration": 24,
+        "blockR18Invites": true,
+        "r18Keywords": [ 
+            "18+",
+            "R18"
+        ],
+        "blockR18InvitesAction": "timeout"
+    },
+
+    "guildUsersDefaults": {
+
+    },
+
+    "guildRegexDefaults": {
+        "enhanced-regex": true,
+        "regex-list": []
+    }
+}
