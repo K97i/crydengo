@@ -7,10 +7,12 @@ Created for The Foxtale Discord Server, its purpose is to catch Discord bots (pr
 ## TO-DO
 
 **\[DONE\]** 	Store per-guild configs with [Keyv](https://discordjs.guide/legacy/keyv/keyv)
-				Track new members with above database
-				Auto-mod regex detection
-				Server invite scanning
-				Add bot-log with per-guild channel setting
+
+**\[DONE\]**	Server invite scanning
+
+**\[DONE\]**	Add bot-log with per-guild channel setting
+
+**\[DONE\]**	Auto-mod regex detection
 
 ## Run Bot
 

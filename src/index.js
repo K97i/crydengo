@@ -1,12 +1,15 @@
 // Require the necessary discord.js classes
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits, MessageFlags } = require('discord.js');
+const { Client, Collection, Events, GatewayIntentBits, MessageFlags, userMention } = require('discord.js');
 const { token } = require('./configs/config.json');
 
-const { get_config, set_config, config_defaults } = require('./helpers/guild-config.js');
-const { perspectiveFix } = require('./helpers/image-fix/perspective-fix.js');
-const { readText } = require('./helpers/image-fix/ocr.js');
+const { get_config, config_defaults } = require('./helpers/guild-config.js');
+const { logToChannel } = require('./helpers/log.js');
+
+const { cryptoDetection } = require('./helpers/detections/crypto-casino.js');
+const { r18InviteDetection } = require('./helpers/detections/r18.js');
+const { regexScan } = require('./helpers/detections/regex-scan.js');
 
 const inviteRegex = /(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/([a-zA-Z0-9-]{2,32})/;
 
@@ -83,45 +86,36 @@ client.on('messageCreate', async (message) => {
     // Ignore messages from other bots to prevent infinite loops
     if (message.author.bot) return;
 
-	let automodConfig, invites;
 
+	// CONFIG LOADING
+
+
+	let automodConfig, regexConfig, log;
+
+	// Set to defaults
 	if (!(automodConfig = await get_config(message.guildId, 'automod'))) 
 		automodConfig = await config_defaults(message.guildId, 'automod');
-		
-	// crypto image
-    if (message.attachments && automodConfig.blockCryptoImage) {
-        const attachment = message.attachments.first();
-		if (attachment && attachment.contentType.startsWith('image/')) {
-			const imageUrl = attachment.url;
-			const fixed = await perspectiveFix(imageUrl);
-			const imageText = await readText(fixed);
 
-			if (imageText.includes('crypto casino') && imageText.includes('launch') && imageText.includes('withdraw')){
-				try {
-					await message.delete();
-					await message.member.timeout(24 * 60 * 60 * 1000);
-				} 
-				
-				catch (err) {
-					console.log(err);
-				}
-				
-			}
-		}
-    }
+	if (!(regexConfig = await get_config(message.guildId, 'regex'))) 
+		regexConfig = await config_defaults(message.guildId, 'regex');
+	
+	// crypto image
+    if (message.attachments && automodConfig.cryptoImages.block)
+		log = await cryptoDetection(message, automodConfig.cryptoImages);
+
+
+	// CHECKS
+
 
 	// r18 invites
-	if (invites = message.content.match(inviteRegex)) {
-		const inviteCode = matches[5];
+	if ((invites = message.content.match(inviteRegex)) && automodConfig.r18Invites.block)
+		log = await r18InviteDetection(message, automodConfig.r18Invites, client, invites);
 
-		try {
-			const inviteMetadata = await client.fetchInvite(inviteCode);
-			console.log(inviteMetadata);
-		}
-		catch (err) {
-			console.warn("Failed to get invite metadata!");
-			console.warn(err);
-		}
-	}
+	// regex scan
+	log = await regexScan(message, regexConfig);
+
+	// Logging functionality
+	if (log)
+		await logToChannel(client, message.guildId, log);
 
 });

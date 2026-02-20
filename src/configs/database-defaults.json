@@ -1,29 +1,45 @@
 {
     "guildAutomodDefaults": {
-        "blockCryptoImage": true,
-        "cryptoImageRotation": -5,
-        "cryptoKeywords": [ 
-            "crypto casino", 
-            "launch",
-            "withdraw" 
-        ],
-        "cryptoImageThreshold": 1,
-        "cryptoAutomodAction": "timeout",
-        "cryptoTimeoutDuration": 24,
-        "blockR18Invites": true,
-        "r18Keywords": [ 
-            "18+",
-            "R18"
-        ],
-        "blockR18InvitesAction": "timeout"
+        "cryptoImages": {
+            "block": true,
+            "action": "timeout",
+            "duration": 24,
+            "imageRotation": -5,
+            "keywords": [ 
+                "crypto casino", 
+                "launch",
+                "withdraw" 
+            ],
+            "threshold": 1
+        },
+
+        "r18Invites": {
+            "block": true,
+            "action": "timeout",
+            "duration": 24,
+            "keywords": [ 
+                "18+",
+                "R18",
+                "r18",
+                "nsfw",
+                "NSFW",
+                ":underage:",
+                "🔞"
+            ],
+            "threshold": 1
+        }
     },
 
-    "guildUsersDefaults": {
-
+    "guildGeneralDefaults": {
+        "loggingChannel": ""
     },
 
     "guildRegexDefaults": {
-        "enhanced-regex": true,
-        "regex-list": []
+        "enhancedRegex": false,
+        "regexList": [ { 
+            "regex": "",
+            "action": "block",
+            "duration": 1
+        } ]
     }
 }
