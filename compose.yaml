@@ -1,0 +1,12 @@
+services:
+  crydengo-bot:
+    build:
+      context: .
+      target: crydengo-bot
+    volumes:
+      - crydengo-db:/src/databases
+      - crydengo-config:/src/configs
+  
+volumes:
+  crydengo-db: 
+  crydengo-config:
