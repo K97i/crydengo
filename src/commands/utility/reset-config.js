@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, MessageFlags } = require('discord.js');
-const { config_defaults } = require('../../helpers/guild-config.js');
+const { get_config, config_defaults } = require('../../helpers/guild-config.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -15,11 +15,13 @@ module.exports = {
 													{ name: 'Regex', value: 'regex' },
 												)),
 	async execute(interaction) {
-        await config_defaults(interaction.guildId, interaction.options.getString('category'));
+		if (adminRole(interaction)) {
+			await config_defaults(interaction.guildId, interaction.options.getString('category'));
 
-        await interaction.reply({
-						content: `${interaction.options.getString('category')} config for guild ID ${interaction.guildId} reset.`,
-						flags: MessageFlags.Ephemeral,
-					});
+			await interaction.reply({
+							content: `${interaction.options.getString('category')} config for guild ID ${interaction.guildId} reset.`,
+							flags: MessageFlags.Ephemeral,
+						});
+		}
 	},
 };

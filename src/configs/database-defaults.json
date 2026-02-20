@@ -1,45 +1,50 @@
 {
-    "guildAutomodDefaults": {
-        "cryptoImages": {
-            "block": true,
-            "action": "timeout",
-            "duration": 24,
-            "imageRotation": -5,
-            "keywords": [ 
-                "crypto casino", 
-                "launch",
-                "withdraw" 
-            ],
-            "threshold": 1
+    "defaults": {
+        "guildAutomodDefaults": {
+            "cryptoImages": {
+                "block": true,
+                "action": "timeout",
+                "duration": 24,
+                "imageRotation": -5,
+                "keywords": [ 
+                    "crypto casino", 
+                    "launch",
+                    "withdraw" 
+                ],
+                "threshold": 1
+            },
+
+            "r18Invites": {
+                "block": true,
+                "action": "timeout",
+                "duration": 24,
+                "keywords": [ 
+                    "18+",
+                    "R18",
+                    "r18",
+                    "nsfw",
+                    "NSFW",
+                    ":underage:",
+                    "🔞"
+                ],
+                "threshold": 1
+            }
         },
 
-        "r18Invites": {
-            "block": true,
-            "action": "timeout",
-            "duration": 24,
-            "keywords": [ 
-                "18+",
-                "R18",
-                "r18",
-                "nsfw",
-                "NSFW",
-                ":underage:",
-                "🔞"
-            ],
-            "threshold": 1
+        "guildGeneralDefaults": {
+            "loggingChannel": "",
+            "adminRoles": [
+                ""
+            ]
+        },
+
+        "guildRegexDefaults": {
+            "enhancedRegex": false,
+            "regexList": [ { 
+                "regex": "",
+                "action": "block",
+                "duration": 1
+            } ]
         }
-    },
-
-    "guildGeneralDefaults": {
-        "loggingChannel": ""
-    },
-
-    "guildRegexDefaults": {
-        "enhancedRegex": false,
-        "regexList": [ { 
-            "regex": "",
-            "action": "block",
-            "duration": 1
-        } ]
     }
 }

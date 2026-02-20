@@ -14,6 +14,8 @@ Created for The Foxtale Discord Server, its purpose is to catch Discord bots (pr
 
 **\[DONE\]**	Auto-mod regex detection
 
+				Refactor to reduce reduncancy
+
 ## Run Bot
 
 1. Insert token in `src/configs/config.json`

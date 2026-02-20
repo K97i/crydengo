@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, MessageFlags } = require('discord.js');
-const { set_config } = require('../../helpers/guild-config.js');
+const { get_config, set_config } = require('../../helpers/guild-config.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -19,13 +19,15 @@ module.exports = {
                                                     .setDescription('The new config you would like to upload.')
                                                     .setRequired(true)),
 	async execute(interaction) {
-        const config = await (await fetch(interaction.options.getAttachment('file').url)).json();
+        if (adminRole(interaction)) {
+            const config = await (await fetch(interaction.options.getAttachment('file').url)).json();
 
-        await set_config(interaction.guildId, interaction.options.getString('category'), config, true);
+            await set_config(interaction.guildId, interaction.options.getString('category'), config, true);
 
-        await interaction.reply({
-						content: `Config for guild ID ${interaction.guildId}, category ${interaction.options.getString('category')} updated.`,
-						flags: MessageFlags.Ephemeral,
-					});
+            await interaction.reply({
+                            content: `Config for guild ID ${interaction.guildId}, category ${interaction.options.getString('category')} updated.`,
+                            flags: MessageFlags.Ephemeral,
+                        });
+        }
 	},
 };

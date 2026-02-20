@@ -1,6 +1,6 @@
 const { KeyvSqlite } = require('@keyv/sqlite');
 const { defaultSerialize, defaultDeserialize } = require('@keyv/serialize');
-const { guildAutomodDefaults, guildGeneralDefaults, guildRegexDefaults } = require('../configs/database-defaults.json');
+const { defaults } = require('../configs/database-defaults.json');
 
 const guildAutomod = new KeyvSqlite('sqlite://databases/guild-automod.sqlite');
 const guildGeneral = new KeyvSqlite('sqlite://databases/guild-general.sqlite');
@@ -27,6 +27,11 @@ async function get_config(guildId, config) {
 
     if (result)
         result = defaultDeserialize(result);
+
+    else {
+        config_defaults(guildId, config);
+        result = get_config(guildId, config);
+    }
 
     return result;
 }
@@ -55,13 +60,13 @@ async function config_defaults(guildId, config) {
 
     switch (config) {
         case 'automod': 
-            result = await guildAutomod.set(guildId, defaultSerialize(guildAutomodDefaults));
+            result = await guildAutomod.set(guildId, defaultSerialize(defaults.guildAutomodDefaults));
             break;        
         case 'general':
-            result = await guildGeneral.set(guildId, defaultSerialize(guildGeneralDefaults));
+            result = await guildGeneral.set(guildId, defaultSerialize(defaults.guildGeneralDefaults));
             break;
         case 'regex':
-            result = await guildRegex.set(guildId, defaultSerialize(guildRegexDefaults));
+            result = await guildRegex.set(guildId, defaultSerialize(defaults.guildRegexDefaults));
             break;
     }
 

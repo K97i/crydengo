@@ -89,16 +89,8 @@ client.on('messageCreate', async (message) => {
 
 	// CONFIG LOADING
 
-
-	let automodConfig, regexConfig, log;
-
-	// Set to defaults
-	if (!(automodConfig = await get_config(message.guildId, 'automod'))) 
-		automodConfig = await config_defaults(message.guildId, 'automod');
-
-	if (!(regexConfig = await get_config(message.guildId, 'regex'))) 
-		regexConfig = await config_defaults(message.guildId, 'regex');
-
+	let log;
+	const automodConfig = await get_config(message.guildId, 'automod'), regexConfig = await get_config(message.guildId, 'regex'); 
 
 	// CHECKS
 	
