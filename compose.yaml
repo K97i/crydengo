@@ -1,5 +1,5 @@
 services:
-  crydengo-bot:
+  crydengo:
     build:
       context: .
       target: crydengo-bot
