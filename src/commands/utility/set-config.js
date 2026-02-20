@@ -4,7 +4,7 @@ const { set_config } = require('../../helpers/guild-config.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 				.setName('set-config')
-				.setDescription(`Gets the current server's configuration`)
+				.setDescription('Gets the current server\'s configuration')
                 .addStringOption((option) => option
                                                     .setName('category')
                                                     .setDescription('The config category you would like to replace.')
@@ -26,6 +26,6 @@ module.exports = {
         await interaction.reply({
 						content: `Config for guild ID ${interaction.guildId}, category ${interaction.options.getString('category')} updated.`,
 						flags: MessageFlags.Ephemeral,
-					})
+					});
 	},
 };

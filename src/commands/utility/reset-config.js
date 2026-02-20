@@ -4,7 +4,7 @@ const { config_defaults } = require('../../helpers/guild-config.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 				.setName('reset-config')
-				.setDescription(`Resets the current server's configuration`)
+				.setDescription('Resets the current server\'s configuration')
 				.addStringOption((option) => option
 												.setName('category')
 												.setDescription('Config category to reset')
@@ -20,6 +20,6 @@ module.exports = {
         await interaction.reply({
 						content: `${interaction.options.getString('category')} config for guild ID ${interaction.guildId} reset.`,
 						flags: MessageFlags.Ephemeral,
-					})
+					});
 	},
 };

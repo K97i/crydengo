@@ -5,28 +5,28 @@ async function logToChannel(client, guild, message) {
     
     const config = await get_config(guild, 'general');
 
-    if (config.loggingChannel){
+    if (config.loggingChannel) {
 
         try {
 
             const channel = await client.channels.fetch(config.loggingChannel);
     
-            if (channel && channel.isTextBased()){
+            if (channel && channel.isTextBased()) {
     
                 let embedColor, embedTitle;
-                switch (message.action){
+                switch (message.action) {
                     case 'timeout':
-                        embedTitle = `Timed out!`;
+                        embedTitle = 'Timed out!';
                         embedColor = 0xe86d0f;
                         break;
     
                     case 'ban':
-                        embedTitle = `Banned!`;
+                        embedTitle = 'Banned!';
                         embedColor = 0xbd1306;
                         break;
 
                     case 'block':
-                        embedTitle = `Message Blocked!`;
+                        embedTitle = 'Message Blocked!';
                         embedColor = 0x464363;
                         break;
                 }
@@ -38,13 +38,13 @@ async function logToChannel(client, guild, message) {
                                         .setDescription(message.logMessage)
                                         .setFooter({ text: `Reason: ${message.reason}` });
     
-                await channel.send({embeds: [ logEmbed ]});
+                await channel.send({ embeds: [ logEmbed ] });
             }
 
         }
     
         catch (err) {
-            console.warn("Logging failed!");
+            console.warn('Logging failed!');
             console.warn(err);
         }
 

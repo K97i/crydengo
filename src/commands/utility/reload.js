@@ -25,7 +25,9 @@ module.exports = {
                 content: `Command \`${newCommand.data.name}\` was reloaded!`,
                 flags: MessageFlags.Ephemeral,
             });
-        } catch (error) {
+        }
+        
+        catch (error) {
             console.error(error);
             await interaction.reply({
                 content: `There was an error while reloading a command \`${command.data.name}\`:\n\`${error.message}\``,

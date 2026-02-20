@@ -13,13 +13,13 @@ async function r18InviteDetection(message, inviteConfig, invites) {
             matches.push(inviteMetadata.guild.name.includes(keyword));
         });
 
-        if (matches >= inviteConfig.threshold){
-            let log = await modMember(message, inviteConfig.action, inviteConfig.duration, '18+ invite detected!');
+        if (matches >= inviteConfig.threshold) {
+            const log = await modMember(message, inviteConfig.action, inviteConfig.duration, '18+ invite detected!');
             return log;
         }
     }
-    catch (err) { // replace with channel logging
-        console.warn("Failed to get invite metadata!");
+    catch (err) {
+        console.warn('Failed to get invite metadata!');
         console.warn(err);
     }
 }

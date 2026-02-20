@@ -1,7 +1,7 @@
-const { Canvas, createCanvas, loadImage } = require('@napi-rs/canvas');
+const { createCanvas, loadImage } = require('@napi-rs/canvas');
 
-async function perspectiveFix(inputImage, imageRotation){
-    let width = 958, height = 1279;
+async function perspectiveFix(inputImage, imageRotation) {
+    const width = 958, height = 1279;
     const download = await loadImage(inputImage);
     const canvas = createCanvas(width, height);
     const context = canvas.getContext('2d');

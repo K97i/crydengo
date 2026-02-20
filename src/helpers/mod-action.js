@@ -2,13 +2,14 @@ const { userMention } = require('discord.js');
 
 async function modMember(message, action, duration, reason) {
     try {
-        let logMessage = "", user = message.member.user, originalMessage = message.content;
+        const user = message.member.user, originalMessage = message.content;
+        let logMessage = '';
 
         switch (action) {
             case 'block':
                 await message.delete();
                 
-                logMessage = `Blocked message from ${userMention(message.member.user.id)} (${message.member.user.globalName} / ${message.member.user.username}).`
+                logMessage = `Blocked message from ${userMention(message.member.user.id)} (${message.member.user.globalName} / ${message.member.user.username}).`;
                 break;
 
             case 'timeout':
@@ -21,7 +22,7 @@ async function modMember(message, action, duration, reason) {
             case 'ban':
                 await message.member.ban({
                     deleteMessageDays: duration <= 7 ? duration : 7,
-                    reason: reason
+                    reason: reason,
                 });
                 
                 logMessage = `Banned ${userMention(message.member.user.id)} (${message.member.user.globalName} / ${message.member.user.username})`;
@@ -31,19 +32,19 @@ async function modMember(message, action, duration, reason) {
                 break;
         }
 
-        if (action != 'none'){
+        if (action != 'none') {
             return {
                 member: user,
                 originalMessage: originalMessage,
                 logMessage: logMessage,
                 reason: reason,
-                action: action
-            }
+                action: action,
+            };
         }
     }
 
     catch (err) {
-        console.warn("Moderation action failed!");
+        console.warn('Moderation action failed!');
         console.warn(err);
     }
 }

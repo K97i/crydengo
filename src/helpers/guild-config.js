@@ -1,4 +1,3 @@
-const { Keyv } = require('keyv');
 const { KeyvSqlite } = require('@keyv/sqlite');
 const { defaultSerialize, defaultDeserialize } = require('@keyv/serialize');
 const { guildAutomodDefaults, guildGeneralDefaults, guildRegexDefaults } = require('../configs/database-defaults.json');
@@ -11,7 +10,7 @@ guildAutomod.on('error', (err) => console.error('Keyv connection error:', err));
 guildGeneral.on('error', (err) => console.error('Keyv connection error:', err));
 guildRegex.on('error', (err) => console.error('Keyv connection error:', err));
 
-async function get_config (guildId, config){
+async function get_config(guildId, config) {
     let result;
 
     switch (config) {
@@ -32,10 +31,9 @@ async function get_config (guildId, config){
     return result;
 }
 
-async function set_config (guildId, config, data, serialize = false) {
-    let result, serialized;
-
-    serialized = serialize ? defaultSerialize(data) : data;
+async function set_config(guildId, config, data, serialize = false) {
+    const serialized = serialize ? defaultSerialize(data) : data;
+    let result;
 
     switch (config) {
         case 'automod': 
@@ -52,7 +50,7 @@ async function set_config (guildId, config, data, serialize = false) {
     return result;
 }
 
-async function config_defaults (guildId, config) {
+async function config_defaults(guildId, config) {
     let result;
 
     switch (config) {

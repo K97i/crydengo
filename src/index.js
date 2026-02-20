@@ -98,14 +98,13 @@ client.on('messageCreate', async (message) => {
 
 	if (!(regexConfig = await get_config(message.guildId, 'regex'))) 
 		regexConfig = await config_defaults(message.guildId, 'regex');
+
+
+	// CHECKS
 	
 	// crypto image
     if (message.attachments && automodConfig.cryptoImages.block)
 		log = await cryptoDetection(message, automodConfig.cryptoImages);
-
-
-	// CHECKS
-
 
 	// r18 invites
 	if ((invites = message.content.match(inviteRegex)) && automodConfig.r18Invites.block)
