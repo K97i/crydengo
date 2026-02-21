@@ -29,7 +29,7 @@ async function get_config(guildId, config) {
         result = defaultDeserialize(result);
 
     else {
-        config_defaults(guildId, config);
+        await config_defaults(guildId, config);
         result = get_config(guildId, config);
     }
 

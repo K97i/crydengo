@@ -20,10 +20,10 @@ module.exports = {
 		if (adminRole(interaction)) {
 			const file = new AttachmentBuilder(Buffer.from(
 				JSON.stringify(await get_config(interaction.guildId, interaction.options.getString('category')), null, '\t'),
-			), { name: `${interaction.guildId}-config.json` });
+			), { name: `${interaction.guildId}-${interaction.options.getString('category')}-config.json` });
 	
 			await interaction.reply({
-							content: `Config for guild ID ${interaction.guildId} reset.`,
+							content: `Config for guild ID ${interaction.guildId}.`,
 							files: [ file ],
 							flags: MessageFlags.Ephemeral,
 						});

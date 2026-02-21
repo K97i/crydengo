@@ -94,19 +94,26 @@ client.on('messageCreate', async (message) => {
 
 	// CHECKS
 	
-	// crypto image
-    if (message.attachments && automodConfig.cryptoImages.block)
-		log = await cryptoDetection(message, automodConfig.cryptoImages);
+	try {
+		// crypto image
+		if (message.attachments && automodConfig.cryptoImages.block)
+			log = await cryptoDetection(message, automodConfig.cryptoImages);
+	
+		// r18 invites
+		if ((invites = message.content.match(inviteRegex)) && automodConfig.r18Invites.block)
+			log = await r18InviteDetection(message, automodConfig.r18Invites, client, invites);
+	
+		// regex scan
+		log = await regexScan(message, regexConfig);
+	
+		// Logging functionality
+		if (log)
+			await logToChannel(client, message.guildId, log);
+	}
 
-	// r18 invites
-	if ((invites = message.content.match(inviteRegex)) && automodConfig.r18Invites.block)
-		log = await r18InviteDetection(message, automodConfig.r18Invites, client, invites);
-
-	// regex scan
-	log = await regexScan(message, regexConfig);
-
-	// Logging functionality
-	if (log)
-		await logToChannel(client, message.guildId, log);
+	catch (err) {
+		console.warn("Error!");
+		console.warn(err);
+	}
 
 });
