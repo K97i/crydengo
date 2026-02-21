@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, MessageFlags } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits, MessageFlags } = require('discord.js');
 const { set_config } = require('../../helpers/guild-config.js');
 
 module.exports = {
@@ -17,17 +17,17 @@ module.exports = {
 				.addAttachmentOption((option) => option
                                                     .setName('file')
                                                     .setDescription('The new config you would like to upload.')
-                                                    .setRequired(true)),
+                                                    .setRequired(true))
+				.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
+
 	async execute(interaction) {
-        if (adminRole(interaction)) {
-            const config = await (await fetch(interaction.options.getAttachment('file').url)).json();
+        const config = await (await fetch(interaction.options.getAttachment('file').url)).json();
 
-            await set_config(interaction.guildId, interaction.options.getString('category'), config, true);
+        await set_config(interaction.guildId, interaction.options.getString('category'), config, true);
 
-            await interaction.reply({
-                            content: `Config for guild ID ${interaction.guildId}, category ${interaction.options.getString('category')} updated.`,
-                            flags: MessageFlags.Ephemeral,
-                        });
-        }
+        await interaction.reply({
+                        content: `Config for guild ID ${interaction.guildId}, category ${interaction.options.getString('category')} updated.`,
+                        flags: MessageFlags.Ephemeral,
+                    });
 	},
 };

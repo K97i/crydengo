@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, MessageFlags, ChannelType } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits, MessageFlags, ChannelType } = require('discord.js');
 const { get_config, set_config } = require('../../helpers/guild-config.js');
 
 module.exports = {
@@ -9,21 +9,19 @@ module.exports = {
                                                 .setName('channel')
                                                 .setDescription('Channel to send this bot\'s logs to.')
                                                 .setRequired(true)
-                                                .addChannelTypes(ChannelType.GuildText),
-                ),
+                                                .addChannelTypes(ChannelType.GuildText))
+				.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
                 
 	async execute(interaction) {
-        if (adminRole(interaction)) {
-            let config = await get_config(interaction.guildId, 'general');
+        let config = await get_config(interaction.guildId, 'general');
 
-            config.loggingChannel = interaction.options.getChannel('channel').id;
-            
-            await set_config(interaction.guildId, 'general', config, true);
+        config.loggingChannel = interaction.options.getChannel('channel').id;
+        
+        await set_config(interaction.guildId, 'general', config, true);
 
-            await interaction.reply({
-                            content: `Logging channel for guild ID ${interaction.guildId} updated to channel: ${interaction.options.getChannel('channel')} (snowflake: ${interaction.options.getChannel('channel').id}).`,
-                            flags: MessageFlags.Ephemeral,
-                        });
-        }
+        await interaction.reply({
+                        content: `Logging channel for guild ID ${interaction.guildId} updated to channel: ${interaction.options.getChannel('channel')} (snowflake: ${interaction.options.getChannel('channel').id}).`,
+                        flags: MessageFlags.Ephemeral,
+                    });
 	},
 };

@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, MessageFlags } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits, MessageFlags } = require('discord.js');
 const { get_config, config_defaults } = require('../../helpers/guild-config.js');
 
 module.exports = {
@@ -13,15 +13,14 @@ module.exports = {
 													{ name: 'Automod', value: 'automod' },
 													{ name: 'General', value: 'general' },
 													{ name: 'Regex', value: 'regex' },
-												)),
+												))
+					.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
 	async execute(interaction) {
-		if (adminRole(interaction)) {
-			await config_defaults(interaction.guildId, interaction.options.getString('category'));
+		await config_defaults(interaction.guildId, interaction.options.getString('category'));
 
-			await interaction.reply({
-							content: `${interaction.options.getString('category')} config for guild ID ${interaction.guildId} reset.`,
-							flags: MessageFlags.Ephemeral,
-						});
-		}
+		await interaction.reply({
+						content: `${interaction.options.getString('category')} config for guild ID ${interaction.guildId} reset.`,
+						flags: MessageFlags.Ephemeral,
+					});
 	},
 };
