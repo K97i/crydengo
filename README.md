@@ -44,6 +44,8 @@ Crydengo is licensed under the GNU General Public License v3.0. See full terms i
 
 ## Disclaimer
 
+TL;DR - Use Crydengo at your own risk.
+
 **Crydengo isn't perfect.**  
 
 Automating moderation is hard. False-positives and false-negatives **will** happen at some point. You have to perfectly balance leniency and explicit rules to get the least amount of false-positives and false-negatives.
