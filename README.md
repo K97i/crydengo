@@ -1,7 +1,5 @@
-<div style="display: flex; flex-flow: column; justify-content: center">
-	<h1 style="text-align: center">Crydengo</h1>
-	<img style="" src="./github-assets/crydengo-04-compressed.jpg"></img>
-</div>
+<h1 align="center">Crydengo</h1>
+<p align="center"><img width="600px" src="./github-assets/crydengo-04-compressed.jpg"></img></p>
 
 ## Description
 
@@ -13,7 +11,8 @@ Created for **The Foxtale Discord Server**, its purpose is to catch Discord bots
 
 ### Locally
 
-1. Insert token in `src/configs/config.json`
+1. Create a Discord bot in Discord for Developers. You can follow [Discord.js's guide](https://discordjs.guide/legacy/preparations/app-setup) (specifically, Application Setup)
+2. Insert the new bots token and its client ID in `src/configs/config.json`
 
 ```json
 {
@@ -22,14 +21,15 @@ Created for **The Foxtale Discord Server**, its purpose is to catch Discord bots
 }
 ```
 
-2. Change directory to /src (`cd src`).
-3. Run `npm run dev`.
+3. Change directory to /src (`cd src`).
+4. Run `npm run dev`.
 
 ### With Docker
 
 Docker allows a program to run similarly universally by separating it from the main host machine.
 
-1. Insert token in `src/configs/config.json`
+1. Create a Discord bot in Discord for Developers. You can follow [Discord.js's guide](https://discordjs.guide/legacy/preparations/app-setup) (specifically, Application Setup)
+2. Insert the new bots token and its client ID in `src/configs/config.json`
 
 ```json
 {
@@ -37,14 +37,16 @@ Docker allows a program to run similarly universally by separating it from the m
 	"clientID": "[YOUR-APPLICATION-ID-HERE]"
 }
 ```
-2. Change directory to root folder (this folder).
-3. Run `docker compose up --build` (optionally, run with the `-d` flag to run the container in the background). 
+3. Change directory to root folder (this folder).
+4. Run `docker compose up --build` (optionally, run with the `-d` flag to run the container in the background). 
 
 ## License
 
-Crydengo is licensed under the GNU General Public License v3.0. See full terms in [LICENSE.md](./LICENSE.md).
+Crydengo is licensed under the GNU General Public License v3.0. See full terms in [LICENSE](./LICENSE).
 
 ## Disclaimer
+
+TL;DR - Use Crydengo at your own risk.
 
 **Crydengo isn't perfect.**  
 
