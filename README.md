@@ -40,7 +40,7 @@ Docker allows a program to run similarly universally by separating it from the m
 
 ## License
 
-Crydengo is licensed under the GNU General Public License v3.0. See full terms in [LICENSE.md](./LICENSE.md).
+Crydengo is licensed under the GNU General Public License v3.0. See full terms in [LICENSE](./LICENSE).
 
 ## Disclaimer
 
