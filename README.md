@@ -6,6 +6,8 @@ Created for The Foxtale Discord Server, its purpose is to catch Discord bots (pr
 
 ## Run Bot
 
+### Locally
+
 1. Insert token in `src/configs/config.json`
 
 ```json
@@ -17,3 +19,10 @@ Created for The Foxtale Discord Server, its purpose is to catch Discord bots (pr
 
 2. Change directory to /src (`cd src`).
 3. Run `npm run dev`.
+
+### With Docker
+
+Docker allows a program to run similarly universally by separating it from the main host machine.
+
+1. Change directory to root folder (this folder).
+2. Run `docker compose up --build`.
