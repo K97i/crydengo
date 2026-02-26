@@ -11,7 +11,7 @@ Created for **The Foxtale Discord Server**, its purpose is to catch Discord bots
 
 ### Locally
 
-1. Insert token in `src/configs/config.json`
+1. Insert a bot token and it's client ID in `src/configs/config.json`
 
 ```json
 {
@@ -27,7 +27,7 @@ Created for **The Foxtale Discord Server**, its purpose is to catch Discord bots
 
 Docker allows a program to run similarly universally by separating it from the main host machine.
 
-1. Insert token in `src/configs/config.json`
+1. Insert a bot token and it's client ID in `src/configs/config.json`
 
 ```json
 {
