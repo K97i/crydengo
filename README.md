@@ -1,7 +1,5 @@
-<div style="display: flex; flex-flow: column; justify-content: center">
-	<h1 style="text-align: center">Crydengo</h1>
-	<img style="" src="./github-assets/crydengo-04-compressed.jpg"></img>
-</div>
+<h1 align="center">Crydengo</h1>
+<p align="center"><img width="600px" src="./github-assets/crydengo-04-compressed.jpg"></img></p>
 
 ## Description
 
