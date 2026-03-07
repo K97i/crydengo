@@ -52,4 +52,35 @@ async function logToChannel(client, guild, message) {
 
 }
 
-module.exports = { logToChannel };
+async function logError(client, guild, message) {
+    const config = await get_config(guild, 'general');
+
+    if (config.loggingChannel) {
+
+        try {
+
+            const channel = await client.channels.fetch(config.loggingChannel);
+    
+            if (channel && channel.isTextBased()) {
+    
+                embedColor = 0xbd1306;
+    
+                const logEmbed = new EmbedBuilder()
+                                        .setColor(0xbd1306)
+                                        .setTitle(message.title)
+                                        .setDescription(message.logMessage)
+    
+                await channel.send({ embeds: [ logEmbed ] });
+            }
+
+        }
+    
+        catch (err) {
+            console.warn('Logging failed!');
+            console.warn(err);
+        }
+
+    }
+}
+
+module.exports = { logToChannel, logError };

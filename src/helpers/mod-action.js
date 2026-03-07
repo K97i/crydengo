@@ -1,4 +1,5 @@
-const { userMention } = require('discord.js');
+const { userMention, time } = require('discord.js');
+const { logError } = require('./log.js');
 
 async function modMember(message, action, duration, reason) {
     try {
@@ -44,8 +45,13 @@ async function modMember(message, action, duration, reason) {
     }
 
     catch (err) {
-        console.warn('Moderation action failed!');
+        console.warn(`Moderation action failed! At: ${new Date().toString()} for ${message.guildId}.`);
         console.warn(err);
+
+        logError(message.client, message.guildId, {
+            logMessage: `${JSON.stringify(err)}`,
+            title: `Moderation action failed! At: ${new Date().toString()}!`,
+        });
     }
 }
 
