@@ -20,10 +20,6 @@ async function cryptoDetection(message, cryptoConfig) {
             if (item)
                 count++;
         });
-        console.log(imageText);
-        console.log(`Length: ${matches.length}`);
-        console.log(matches);
-        console.log(count);
 
         if (count >= cryptoConfig.threshold) {
             const log = await modMember(message, cryptoConfig.action, cryptoConfig.duration, 'Crypto casino scam detected!');
