@@ -9,9 +9,10 @@
                 "keywords": [ 
                     "crypto casino", 
                     "launch",
-                    "withdraw" 
+                    "withdraw",
+                    "2,500" 
                 ],
-                "threshold": 1
+                "threshold": 3
             },
 
             "r18Invites": {

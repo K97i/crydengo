@@ -13,7 +13,14 @@ async function r18InviteDetection(message, inviteConfig, invites) {
             matches.push(inviteMetadata.guild.name.includes(keyword));
         });
 
-        if (matches >= inviteConfig.threshold) {
+        let count = 0;
+
+        matches.forEach((item) => {
+            if (item)
+                count++;
+        });
+
+        if (count >= inviteConfig.threshold) {
             const log = await modMember(message, inviteConfig.action, inviteConfig.duration, '18+ invite detected!');
             return log;
         }

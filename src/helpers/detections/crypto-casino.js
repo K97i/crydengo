@@ -14,7 +14,18 @@ async function cryptoDetection(message, cryptoConfig) {
             matches.push(imageText.includes(keyword));
         });
 
-        if (matches.length >= cryptoConfig.threshold) {
+        let count = 0;
+
+        matches.forEach((item) => {
+            if (item)
+                count++;
+        });
+        console.log(imageText);
+        console.log(`Length: ${matches.length}`);
+        console.log(matches);
+        console.log(count);
+
+        if (count >= cryptoConfig.threshold) {
             const log = await modMember(message, cryptoConfig.action, cryptoConfig.duration, 'Crypto casino scam detected!');
             return log;
         }
