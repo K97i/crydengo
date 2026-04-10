@@ -1,15 +1,18 @@
 const { modMember } = require('../mod-action.js');
 
 async function r18InviteDetection(message, inviteConfig, invites) {
+    // ['discord.gg/[INVITE-CODE]', undefined, undefined, 'discord.gg', 'gg', '[INVITE-CODE]']
     const inviteCode = invites[5];
 
     try {
         let matches = [];
-
         const inviteMetadata = await message.client.fetchInvite(inviteCode);
 
         inviteConfig.keywords.forEach((keyword) => {
-            matches.push(inviteMetadata.guild.description.includes(keyword));
+            if (inviteMetadata.guild.description) {
+                matches.push(inviteMetadata.guild.description.includes(keyword));
+            }
+            
             matches.push(inviteMetadata.guild.name.includes(keyword));
         });
 
