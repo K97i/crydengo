@@ -100,14 +100,15 @@ client.on('messageCreate', async (message) => {
 			log = await cryptoDetection(message, automodConfig.cryptoImages);
 	
 		// r18 invites
-		if (inviteRegex.test(message.content) && automodConfig.r18Invites.block){
+		if (!log && inviteRegex.test(message.content) && automodConfig.r18Invites.block){
 			invites = message.content.match(inviteRegex);
 			log = await r18InviteDetection(message, automodConfig.r18Invites, invites);
 		}
 	
 		// regex scan
-		log = await regexScan(message, regexConfig);
-	
+		if (!log)
+			log = await regexScan(message, regexConfig);
+
 		// Logging functionality
 		if (log)
 			await logToChannel(client, message.guildId, log);

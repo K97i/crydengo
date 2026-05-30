@@ -17,7 +17,8 @@ async function modMember(message, action, duration, reason) {
                 await message.delete();
                 await message.member.timeout(duration * 60 * 60 * 1000);
                 
-                logMessage = `Timed out ${userMention(message.member.user.id)} (${message.member.user.globalName} / ${message.member.user.username}) for ${duration} hours`;
+                logMessage = `Timed out ${userMention(message.member.user.id)} (${message.member.user.globalName} / ${message.member.user.username}) for ${duration} hour`
+                            + duration > 1 ? 's' : '';
                 break;
 
             case 'ban':
@@ -42,6 +43,8 @@ async function modMember(message, action, duration, reason) {
                 action: action,
             };
         }
+
+        console.log("is none");
     }
 
     catch (err) {

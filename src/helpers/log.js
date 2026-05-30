@@ -68,7 +68,7 @@ async function logError(client, guild, message) {
                 const logEmbed = new EmbedBuilder()
                                         .setColor(0xbd1306)
                                         .setTitle(message.title)
-                                        .setDescription(message.logMessage)
+                                        .setDescription(message.logMessage);
     
                 await channel.send({ embeds: [ logEmbed ] });
             }
