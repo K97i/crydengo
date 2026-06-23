@@ -1,4 +1,4 @@
-const { modMember } = require('../mod-action.js');
+const { modMember } = require('../../helpers/mod-action.js');
 
 async function r18InviteDetection(message, inviteConfig, invites) {
     // ['discord.gg/[INVITE-CODE]', undefined, undefined, 'discord.gg', 'gg', '[INVITE-CODE]']

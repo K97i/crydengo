@@ -3,15 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits, MessageFlags } = require('discord.js');
 const { token } = require('./configs/config.json');
-
-const { get_config, config_defaults } = require('./helpers/guild-config.js');
-const { logToChannel } = require('./helpers/log.js');
-
-const { cryptoDetection } = require('./helpers/detections/crypto-casino.js');
-const { r18InviteDetection } = require('./helpers/detections/r18.js');
-const { regexScan } = require('./helpers/detections/regex-scan.js');
-
-const inviteRegex = /(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/([a-zA-Z0-9-]{2,32})/;
+const { runScans } = require('./modules/module-host.js');
 
 // Create a new client instance
 // Initialize the client with required intents
@@ -83,40 +75,5 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
 // Listen for new messages
 client.on('messageCreate', async (message) => {
-    // Ignore messages from other bots to prevent infinite loops
-    if (message.author.bot) return;
-
-
-	// CONFIG LOADING
-
-	let log;
-	const automodConfig = await get_config(message.guildId, 'automod'), regexConfig = await get_config(message.guildId, 'regex'); 
-
-	// CHECKS
-	
-	try {
-		// crypto image
-		if (message.attachments && automodConfig.cryptoImages.block)
-			log = await cryptoDetection(message, automodConfig.cryptoImages);
-	
-		// r18 invites
-		if (!log && inviteRegex.test(message.content) && automodConfig.r18Invites.block){
-			invites = message.content.match(inviteRegex);
-			log = await r18InviteDetection(message, automodConfig.r18Invites, invites);
-		}
-	
-		// regex scan
-		if (!log)
-			log = await regexScan(message, regexConfig);
-
-		// Logging functionality
-		if (log)
-			await logToChannel(client, message.guildId, log);
-	}
-
-	catch (err) {
-		console.warn("Error!");
-		console.warn(err);
-	}
-
+	await runScans(message);
 });

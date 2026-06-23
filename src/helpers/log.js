@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require('discord.js');
-const { get_config } = require('./guild-config.js');
+const { get_config } = require('./config/guild-config.js');
 
 async function logToChannel(client, guild, message) {
     

@@ -1,4 +1,4 @@
-const { modMember } = require('../mod-action.js');
+const { modMember } = require('../../helpers/mod-action.js');
 
 async function regexScan(message, regexConfig) {
 

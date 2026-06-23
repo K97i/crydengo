@@ -1,6 +1,6 @@
 const { KeyvSqlite } = require('@keyv/sqlite');
 const { defaultSerialize, defaultDeserialize } = require('@keyv/serialize');
-const { defaults } = require('../configs/database-defaults.json');
+const { defaults } = require('../../configs/database-defaults.json');
 
 const guildAutomod = new KeyvSqlite('sqlite://databases/guild-automod.sqlite');
 const guildGeneral = new KeyvSqlite('sqlite://databases/guild-general.sqlite');

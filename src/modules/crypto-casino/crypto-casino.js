@@ -1,5 +1,5 @@
-const { readText } = require('../image-fix/ocr.js');
-const { modMember } = require('../mod-action.js');
+const { readText } = require('./ocr.js');
+const { modMember } = require('../../helpers/mod-action.js');
 
 async function imageUrlToBuffer(url) {
     const response = await fetch(url);
