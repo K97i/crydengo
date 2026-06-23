@@ -14,6 +14,10 @@ module.exports = {
                                                         { name: 'General', value: 'general' },
                                                         { name: 'Regex', value: 'regex' },
                                                     ))
+				.addBooleanOption((option) => option
+													.setName('autocorrect')
+                                                    .setRequired(true)
+													.setDescription('If the bot should attempt to autocorrect the config'))
 				.addAttachmentOption((option) => option
                                                     .setName('file')
                                                     .setDescription('The new config you would like to upload.')
@@ -23,11 +27,18 @@ module.exports = {
 	async execute(interaction) {
         const config = await (await fetch(interaction.options.getAttachment('file').url)).json();
 
-        await set_config(interaction.guildId, interaction.options.getString('category'), config, true);
+        const response = await set_config(interaction.guildId, interaction.options.getString('category'), config, true, interaction.options.getBoolean('autocorrect'));
 
-        await interaction.reply({
-                        content: `Config for guild ID ${interaction.guildId}, category ${interaction.options.getString('category')} updated.`,
-                        flags: MessageFlags.Ephemeral,
-                    });
+        if (response === true)
+            await interaction.reply({
+                            content: `Config for guild ID ${interaction.guildId}, category ${interaction.options.getString('category')} updated.`,
+                            flags: MessageFlags.Ephemeral,
+                        });
+
+        else
+            await interaction.reply({
+                            content: `Setting failed!`,
+                            flags: MessageFlags.Ephemeral,
+                        });
 	},
 };

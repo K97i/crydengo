@@ -1,5 +1,4 @@
 const automodSchema = {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "properties": {
         "cryptoImages": {
@@ -15,11 +14,6 @@ const automodSchema = {
                 "duration": {
                     "type": "integer",
                     "minimum": 1
-                },
-                "imageRotation": {
-                    "type": "number",
-                    "minimum": -360,
-                    "maximum": 360
                 },
                 "keywords": {
                     "type": "array",
@@ -38,7 +32,6 @@ const automodSchema = {
                 "block",
                 "action",
                 "duration",
-                "imageRotation",
                 "keywords",
                 "threshold"
             ],
@@ -75,7 +68,6 @@ const automodSchema = {
                 "block",
                 "action",
                 "duration",
-                "imageRotation",
                 "keywords",
                 "threshold"
             ],
@@ -87,7 +79,6 @@ const automodSchema = {
 }
 
 const generalSchema = {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "properties": {
         "loggingChannel": {
@@ -98,7 +89,6 @@ const generalSchema = {
             "items": {
                 "type": "string",
             },
-            "minItems": 1,
             "uniqueItems": true
         }
     },
@@ -107,37 +97,35 @@ const generalSchema = {
 }
 
 const regexSchema = {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
-  "properties": {
-    "enhancedRegex": {
-      "type": "boolean"
-    },
-    "regexList": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "regex": {
-            "type": "string",
-            "minLength": 1
-          },
-          "action": {
-            "type": "string",
-            "enum": ["block", "timeout", "delete", "warn", "none"]
-          },
-          "duration": {
-            "type": "integer",
-            "minimum": 1
-          }
+    "properties": {
+        "enhancedRegex": {
+            "type": "boolean"
         },
-        "required": ["regex", "action"],
-        "additionalProperties": false
-      },
-    }
-  },
-  "required": ["enhancedRegex", "regexList"],
-  "additionalProperties": false
+        "regexList": {
+            "type": "array",
+            "items": {
+            "type": "object",
+            "properties": {
+                "regex": {
+                "type": "string",
+                },
+                "action": {
+                "type": "string",
+                "enum": ["block", "timeout", "delete", "warn", "none"]
+                },
+                "duration": {
+                "type": "integer",
+                "minimum": 1
+                }
+            },
+            "required": ["regex", "action"],
+            "additionalProperties": false
+            },
+        }
+    },
+    "required": ["enhancedRegex", "regexList"],
+    "additionalProperties": false
 }
 
 module.exports = { automodSchema, generalSchema, regexSchema };
