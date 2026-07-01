@@ -1,9 +1,10 @@
 const { get_config } = require('../helpers/config/guild-config.js');
 const { logToChannel } = require('../helpers/log.js');
 
-const { cryptoDetection } = require('./crypto-casino/crypto-casino.js');
-const { r18InviteDetection } = require('./r18/r18.js');
-const { regexScan } = require('./regex-scan/regex-scan.js');
+const { cryptoDetection } = require('./crypto-casino');
+const { r18InviteDetection } = require('./r18');
+const { regexScan } = require('./regex-scan');
+const { honeypot } = require('./honeypot');
 
 const inviteRegex = /(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/([a-zA-Z0-9-]{2,32})/;
 
@@ -14,13 +15,20 @@ async function runScans(client, message) {
 	// CONFIG LOADING
 
 	let log;
-	const automodConfig = await get_config(message.guildId, 'automod'), regexConfig = await get_config(message.guildId, 'regex'); 
+	const [automodConfig, regexConfig] = await Promise.all([
+            get_config(message.guildId, 'automod'),
+            get_config(message.guildId, 'regex')
+	]);
 
 	// CHECKS
 	
 	try {
+		// honeypot
+		if (automodConfig.honeypot.block && automodConfig.honeypot.channel != "")
+			log = await honeypot(client, message, automodConfig.honeypot);
+
 		// crypto image
-		if (message.attachments && automodConfig.cryptoImages.block)
+		if (!log && message.attachments && automodConfig.cryptoImages.block)
 			log = await cryptoDetection(message, automodConfig.cryptoImages);
 	
 		// r18 invites

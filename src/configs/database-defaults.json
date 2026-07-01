@@ -32,6 +32,15 @@
                     "🍒"
                 ],
                 "threshold": 1
+            },
+
+            "honeypot": {
+                "block": false,
+                "action": "timeout",
+                "duration": 24,
+                "channel": "",
+                "embedSnowflake": "",
+                "count": 0
             }
         },
 

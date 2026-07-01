@@ -72,9 +72,44 @@ const automodSchema = {
                 "threshold"
             ],
             "additionalProperties": false
+        },
+        "honeypot": {
+            "type": "object",
+            "properties": {
+                "block": {
+                    "type": "boolean"
+                },
+                "action": {
+                    "type": "string",
+                    "enum": ["timeout", "ban", "block", "none"]
+                },
+                "duration": {
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "channel": {
+                    "type": "string",
+                },
+                "embedSnowflake": {
+                    "type": "string",
+                },
+                "count": {
+                    "type": "integer",
+                    "minimum": 0
+                }
+            },
+            "required": [
+                "block",
+                "action",
+                "duration",
+                "channel",
+                "embedSnowflake",
+                "count"
+            ],
+            "additionalProperties": false
         }
     },
-    "required": ["cryptoImages", "r18Invites"],
+    "required": ["cryptoImages", "r18Invites", "honeypot"],
     "additionalProperties": false
 }
 
