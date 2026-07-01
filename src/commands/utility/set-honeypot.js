@@ -37,7 +37,7 @@ module.exports = {
                         
                         If you send a message in this channel, **you will be kicked from the server!** This channel was made to catch bots and spammers.
 
-**Kicked members**: 0`)
+**Kicked members**: ${config.honeypot.count}`)
                 .setThumbnail('https://static.wikia.nocookie.net/herofanon/images/a/a5/Screenshot_20251116_181431_YouTube.jpg')
                 .setFooter({ text: '"A honeypot is something whose purpose is to attract people and catch them doing something wrong, especially on the internet." - Collins Dictionary' });
 
