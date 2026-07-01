@@ -21,6 +21,14 @@ async function modMember(message, action, duration, reason) {
                             + ((duration > 1) ? 's' : '');
                 break;
 
+            case 'kick':
+                await message.member.kick({
+                    reason: reason,
+                });
+                
+                logMessage = `Kicked ${userMention(message.member.user.id)} (${message.member.user.globalName} / ${message.member.user.username})`;
+                break;
+
             case 'ban':
                 await message.member.ban({
                     deleteMessageDays: duration <= 7 ? duration : 7,
