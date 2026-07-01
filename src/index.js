@@ -75,5 +75,5 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
 // Listen for new messages
 client.on('messageCreate', async (message) => {
-	await runScans(message);
+	await runScans(client, message);
 });

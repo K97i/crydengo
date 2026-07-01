@@ -7,7 +7,7 @@ const { regexScan } = require('./regex-scan/regex-scan.js');
 
 const inviteRegex = /(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/([a-zA-Z0-9-]{2,32})/;
 
-async function runScans(message) {
+async function runScans(client, message) {
     // Ignore messages from other bots to prevent infinite loops
     if (message.author.bot) return;
 
