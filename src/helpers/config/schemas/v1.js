@@ -45,7 +45,7 @@ const automodSchema = {
                 },
                 "action": {
                     "type": "string",
-                    "enum": ["timeout", "ban", "block", "none"]
+                    "enum": ["timeout", "kick", "ban", "block", "none"]
                 },
                 "duration": {
                     "type": "integer",
@@ -81,7 +81,7 @@ const automodSchema = {
                 },
                 "action": {
                     "type": "string",
-                    "enum": ["timeout", "ban", "block", "none"]
+                    "enum": ["timeout", "kick", "ban", "block", "none"]
                 },
                 "duration": {
                     "type": "integer",
@@ -147,7 +147,7 @@ const regexSchema = {
                 },
                 "action": {
                 "type": "string",
-                "enum": ["block", "timeout", "delete", "warn", "none"]
+                "enum": ["block", "kick", "timeout", "delete", "warn", "none"]
                 },
                 "duration": {
                 "type": "integer",
