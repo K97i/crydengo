@@ -22,8 +22,12 @@ initPromise = initScheduler();
 async function readText(image) {
     await initPromise; 
     
-    const { data: { text } } = await scheduler.addJob('recognize', image, { rotateAuto: true });
-    return text;
+    try {
+        const { data: { text } } = await scheduler.addJob('recognize', image, { rotateAuto: true });
+        return text;
+    } catch (error) {
+        console.error("Tesseract.js failed!", error);
+    }
 }
 
 module.exports = { readText };
